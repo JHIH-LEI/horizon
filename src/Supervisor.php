@@ -333,8 +333,8 @@ class Supervisor implements Pausable, Restartable, Terminable
     {
         $this->lastAutoScaled = $this->lastAutoScaled ?:
                     Chronos::now()->subSeconds($this->autoScaleCooldown + 1);
-
-        if (Chronos::now()->subSeconds($this->autoScaleCooldown)->gte($this->lastAutoScaled)) {
+        
+        if (Chronos::now()->subSeconds($this->autoScaleCooldown)->greaterThanOrEquals($this->lastAutoScaled)) {
             $this->lastAutoScaled = Chronos::now();
 
             app(AutoScaler::class)->scale($this);
